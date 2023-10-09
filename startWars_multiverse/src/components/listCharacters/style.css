@@ -1,0 +1,14 @@
+.CharacterView {
+  border-radius: 12px;
+  border: 1px solid white;
+  backdrop-filter: blur(10px);
+}
+
+.CharacterDetails {
+  width: 300px;
+}
+
+.CharacterDetails > li {
+  display: flex;
+  align-items: flex-start;
+}
