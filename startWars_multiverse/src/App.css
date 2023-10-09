@@ -6,7 +6,7 @@
 }
 
 .logo {
-  height: 6em;
+  height: 13em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -33,10 +33,44 @@
   }
 }
 
-.card {
-  padding: 2em;
+.fontCustom {
+  font-family: "Star Wars", sans-serif;
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke: 2px #fac528;
 }
 
-.read-the-docs {
-  color: #888;
+.card {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+}
+
+.pagination {
+  width: 100%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.pagination a {
+  padding: 10px;
+  margin: 7px;
+  border-radius: 5px;
+  border: 1px solid #2b2eff;
+  color: #2b2eff;
+  background-color: white;
+  cursor: pointer;
+}
+
+.pagination a:hover {
+  color: white;
+  background-color: #2b2eff;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #2b2eff;
 }
