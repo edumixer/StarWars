@@ -17,9 +17,20 @@ type ICharacter = {
   skin_color: string;
 };
 
+type ISpace = {
+  name: string;
+  diameter: string;
+  population: string;
+  orbital_period: string;
+  rotation_period: string;
+  terrain: string;
+}
+
 const CharacterView = () => {
   const { name } = useParams();
   const [character, setCharacter] = useState<ICharacter | null>(null);
+  const [homeworldId, setHomeworldId] = useState<string | null>(null);
+  const [homeDataPlanets, setHomeDataPlanets] = useState<ISpace | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,6 +40,13 @@ const CharacterView = () => {
         const characterData = await starWarsApi.fetchCharacterByName(name);
         console.log("NOME CLICADO: ", name);
         setCharacter(characterData);
+
+        const homeworldUrlParts = characterData.homeworld.split("/");
+        const homeworldId = homeworldUrlParts[homeworldUrlParts.length - 2];
+        setHomeworldId(homeworldId);
+
+        const homeworldData = await starWarsApi.fetchHomeWorldById(homeworldId);
+        setHomeDataPlanets(homeworldData);
       } catch (error) {
         console.log(error);
       }
@@ -69,6 +87,9 @@ const CharacterView = () => {
             <li>
               <strong>Skin Color</strong>: {character.skin_color}
             </li>
+            <li>
+              <strong>Homeworld</strong>: {homeworldId}
+            </li>
           </ul>
         ) : loading ? (
           <img height={50} src={ActivityIndicator} />
@@ -76,7 +97,7 @@ const CharacterView = () => {
           ""
         )}
       </section>
-      <SpaceDetails />
+      <SpaceDetails homeworldData={homeDataPlanets} />
     </main>
   );
 };

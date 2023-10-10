@@ -18,19 +18,19 @@ async function fetchAllCharacters() {
   }
 }
 
-async function fetchAllPlanets() {
+async function fetchHomeWorldById(homeWorldId: number) {
   try {
-    const response = await starWarsApi.get("api/planets/1");
+    const response = await starWarsApi.get(`api/planets/${homeWorldId}`);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 }
 
-async function fetchCharacterByName(name) {
+async function fetchCharacterByName(name: string) {
   try {
     const response = await starWarsApi.get(`api/people/?search=${name}`);
-    console.log("Chamada API fetchByName: ", response.data)
+    console.log("Chamada API fetchByName: ", response.data);
     const character = response.data.results[0];
     return character;
   } catch (error) {
@@ -38,4 +38,8 @@ async function fetchCharacterByName(name) {
   }
 }
 
-export default {fetchAllCharacters, fetchAllPlanets, fetchCharacterByName};
+export default {
+  fetchAllCharacters,
+  fetchCharacterByName,
+  fetchHomeWorldById,
+};
