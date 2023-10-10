@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import starWarsApi from "../../services/api.service";
 
 import ActivityIndicator from "../../../public/loading.gif";
-import './style.css'
+import "./style.css";
 
 interface ISpace {
   name: string;
@@ -13,50 +14,63 @@ interface ISpace {
   terrain: string;
 }
 
-const SpaceDetails = () => {
+const SpaceDetails = ({ homeworldData }: { homeworldData: ISpace }) => {
+  const { name } = useParams();
   const [loading, setLoading] = useState(false);
-  const [spaces, setSpaces] = useState<ISpace | null>(null); // Defina o tipo corretamente aqui
+  const [character, setCharacter] = useState<string | null>(null);
+  const [homeworldId, setHomeworldId] = useState<string | null>(null);
+  const [homeData, setHomeData] = useState<ISpace | null>(null);
 
   useEffect(() => {
     async function loadSpaces() {
       setLoading(true);
       try {
-        const spaces: ISpace = await starWarsApi.fetchAllPlanets();
-        console.log("SPACE: ", spaces);
-        setSpaces(spaces);
+        const characterData = await starWarsApi.fetchCharacterByName(name);
+        setCharacter(characterData);
+
+        const homeworldUrlParts = characterData.homeworld.split("/");
+        const homeworldId = homeworldUrlParts[homeworldUrlParts.length - 2];
+
+        setHomeworldId(homeworldId);
+
+        const homeworldData = await starWarsApi.fetchHomeWorldById(homeworldId);
+        console.log("homeWorldData: ", homeworldData);
+        setHomeData(homeworldData);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
     }
     loadSpaces();
-  }, []);
+  }, [name]);
 
   return (
     <main>
       <header>
-        <h1 className="fontCustom" style={{ letterSpacing: '15px'}}>Details about planet {spaces?.name}</h1>
+        <h1 className="fontCustom" style={{ letterSpacing: "15px" }}>
+          Details about planet {homeData?.name}
+        </h1>
       </header>
       <section className="CharacterView">
-        {spaces ? (
+        {homeData ? (
           <ul className="grid-spaces">
             <li>
-              <strong>Name</strong>: {spaces.name}
+              <strong>Name</strong>: {homeData.name}
             </li>
             <li>
-              <strong>Diameter</strong>: {spaces.diameter}
+              <strong>Diameter</strong>: {homeData.diameter}
             </li>
             <li>
-              <strong>Population</strong>: {spaces.population}
+              <strong>Population</strong>: {homeData.population}
             </li>
             <li>
-              <strong>Orbital Period</strong>: {spaces.orbital_period}
+              <strong>Orbital Period</strong>: {homeData.orbital_period}
             </li>
             <li>
-              <strong>Rotation Period</strong>: {spaces.rotation_period}
+              <strong>Rotation Period</strong>: {homeData.rotation_period}
             </li>
             <li>
-              <strong>Terrain</strong>: {spaces.terrain}
+              <strong>Terrain</strong>: {homeData.terrain}
             </li>
           </ul>
         ) : loading ? (
@@ -67,6 +81,6 @@ const SpaceDetails = () => {
       </section>
     </main>
   );
-}
+};
 
 export default SpaceDetails;
