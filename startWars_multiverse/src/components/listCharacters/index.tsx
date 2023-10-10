@@ -3,14 +3,10 @@ import VanillaTilt from 'vanilla-tilt';
 import './style.css';
 
 type ICharacter = {
+  name: string;
   birth_year: string;
-  eye_color: string;
-  gender: string;
-  hair_color: string;
   height: string;
   mass: string;
-  skin_color: string;
-  name: string;
 };
 
 const ListCharacters = ({ character }: { character: ICharacter }) => {
@@ -30,22 +26,13 @@ const ListCharacters = ({ character }: { character: ICharacter }) => {
           <strong>Birth Year</strong>: {character.birth_year}
         </li>
         <li>
-          <strong>Eye Color</strong>: {character.eye_color}
-        </li>
-        <li>
-          <strong>Gender</strong>: {character.gender}
-        </li>
-        <li>
-          <strong>Hair Color</strong>: {character.hair_color}
-        </li>
-        <li>
           <strong>Height</strong>: {character.height}
         </li>
         <li>
           <strong>Mass</strong>: {character.mass}
         </li>
         <li>
-          <strong>Skin Color</strong>: {character.skin_color}
+          <strong>...</strong>
         </li>
       </ul>
     </section>
