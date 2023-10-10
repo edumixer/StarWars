@@ -1,27 +1,46 @@
-# Star Wars
+# Star Wars 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview 🌌
 
-Currently, two official plugins are available:
+Star Wars Galaxy Explorer is an incredible project that allows you to venture into the expansive Star Wars universe. It leverages the power of the Force, connecting to the API at [Swapi](https://swapi.dev/about) to provide detailed information about iconic characters and captivating planets from the Star Wars galaxy. With just a simple click, you can immerse yourself in the fantastic world of Star Wars.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation ⚙
 
-## Expanding the ESLint configuration
+- Follow these steps to get the project up and running on your local machine.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/edumixer/StarWars.git
+   ```
+2. **Navigate to the project folder**:
+   ```sh
+   cd StarWars/startWars_multiverse
+   ```
+3. **Install Dependencies**:
+- using npm package
+   ```sh
+   npm install
+   ```
+- using yarn package
+   ```sh
+   yarn
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+## Scripts 🔗
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- Start the application using ViteJs
+   ```sh 
+   npm run dev
+   ```
+- Run the tests using Vitest
+   ```sh 
+   npm run test
+   ```
+- Generate test coverage report
+   ```sh 
+   npm run coverage
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Usage 💻
+
+- After following the installation steps, you can access the Star Wars project in your web browser at http://localhost:5173/ and explore.
