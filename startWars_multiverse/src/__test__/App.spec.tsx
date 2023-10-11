@@ -4,7 +4,10 @@ import MockAdapter from "axios-mock-adapter";
 import { describe, expect, it } from "vitest";
 import App from "../App";
 import SpaceDetails from "../components/spaceDetails";
+import CharacterView from "../components/viewDetails";
 import starWarsApi from "../services/api.service";
+import ActivityIndicator from "../../public/loading.gif";
+import ListCharacters from "../components/listCharacters";
 
 describe("Tests API Star Wars", () => {
   let mock: MockAdapter;
@@ -62,7 +65,7 @@ describe("Tests API Star Wars", () => {
     expect(response).toBeTruthy();
   }, 10000);
 });
-describe("Testing component App", () => {
+describe("Testing component <App/>", () => {
   it("should have an image", () => {
     render(<App />);
     const image = screen.queryByAltText("Star Wars Logo");
@@ -70,7 +73,7 @@ describe("Testing component App", () => {
   });
 });
 
-describe("Testing component SpaceDetails", () => {
+describe("Testing component <SpaceDetails/>", () => {
   it("should not initially render planet details", () => {
     const mockSpaceData = {
       name: "Tatooine",
@@ -90,5 +93,45 @@ describe("Testing component SpaceDetails", () => {
     expect(screen.queryByText("Orbital Period: 304")).toBeNull();
     expect(screen.queryByText("Rotation Period: 23")).toBeNull();
     expect(screen.queryByText("Terrain: desert")).toBeNull();
+  });
+});
+
+describe("Testing component <CharacterView/>", () => {
+  it("should render component and get text and verify it's not null", async () => {
+    render(<CharacterView />);
+    const birthYearText = screen.queryByText("Birth Year");
+    expect(birthYearText).toBeNull();
+  });
+
+  it('Logo should have src={ActivityIndicator} and alt="Logo"', () => {
+    render(<CharacterView />);
+    const testImage = document.querySelector("img") as HTMLImageElement;
+    expect(testImage).toHaveAttribute("src", ActivityIndicator);
+    expect(testImage).toHaveAttribute("alt", "Loading");
+  });
+});
+
+
+describe("Testing component <ListCharacters/>", () => {
+  it("should render character details", () => {
+    const characterData = {
+      name: "Luke Skywalker",
+      birth_year: "19 BBY",
+      height: "172",
+      mass: "77",
+    };
+
+    render(<ListCharacters character={characterData} />);
+
+    expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
+
+    const ulElement = screen
+      .getByText("Luke Skywalker")
+      .closest("section")
+      .querySelector(".CharacterDetails");
+
+    expect(ulElement).toHaveTextContent("Birth Year: 19 BBY");
+    expect(ulElement).toHaveTextContent("Height: 172");
+    expect(ulElement).toHaveTextContent("Mass: 77");
   });
 });
