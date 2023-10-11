@@ -92,12 +92,12 @@ const CharacterView = () => {
             </li>
           </ul>
         ) : loading ? (
-          <img height={50} src={ActivityIndicator} />
+          <img height={50} src={ActivityIndicator} alt="Loading" />
         ) : (
           ""
         )}
       </section>
-      <SpaceDetails homeworldData={homeDataPlanets} />
+      {homeDataPlanets && <SpaceDetails homeworldData={homeDataPlanets} />}
     </main>
   );
 };
